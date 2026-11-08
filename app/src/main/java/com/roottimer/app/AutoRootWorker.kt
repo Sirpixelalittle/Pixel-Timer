@@ -60,6 +60,7 @@ class ShizukuWaitWorker(ctx: Context, params: WorkerParameters) :
     Worker(ctx, params) {
 
     override fun doWork(): Result {
+        if (!DeviceProfile.isSupported()) return Result.failure()
         if (modulesHasKsu()) return Result.success() // already rooted, next worker no-ops
         val deadline = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(8)
         while (System.currentTimeMillis() < deadline) {
@@ -92,6 +93,12 @@ class AutoRootWorker(ctx: Context, params: WorkerParameters) :
     }
 
     override fun doWork(): Result {
+        if (!DeviceProfile.isSupported()) {
+            return fail(
+                applicationContext.getString(R.string.notif_fail),
+                applicationContext.getString(R.string.unsupported_profile)
+            )
+        }
         if (modulesHasKsu()) {
             AutoRootNotif.post(
                 applicationContext, 1,
@@ -116,7 +123,7 @@ class AutoRootWorker(ctx: Context, params: WorkerParameters) :
             ComponentName(applicationContext.packageName, RootService::class.java.name)
         )
             .daemon(false)
-            .processNameSuffix("roottimer")
+            .processNameSuffix("pixeltimer")
             .debuggable(false)
             .version(2)
 

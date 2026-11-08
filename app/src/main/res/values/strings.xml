@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Header -->
-    <string name="app_name">SamTimer</string>
-    <string name="app_title">SamTimer</string>
-    <string name="app_subtitle">CVE-2026-98260 · Samsung Kernel LPE</string>
+    <string name="app_name">Pixel Timer</string>
+    <string name="app_title">Pixel Timer</string>
+    <string name="app_subtitle">CVE-2026-98260 · Pixel 8 Pro</string>
+    <string name="tested_profile">Only tested on Pixel 8 Pro · CP3A.261005.005</string>
+    <string name="unsupported_profile">Unsupported device or kernel. This build requires the tested Pixel 8 Pro kernel.</string>
 
     <!-- Root status -->
     <string name="root_checking">Checking…</string>
     <string name="root_rooted">Rooted</string>
     <string name="root_not_rooted">Not rooted</string>
     <string name="root_unknown">Cannot check</string>
-    <string name="root_rooted_detail">KernelSU module live — grant su in the manager app</string>
+    <string name="root_rooted_detail">KernelSU Next module live — grant su in the manager app</string>
     <string name="root_not_detail">Root is cleared on reboot</string>
     <string name="root_unknown_detail">No permission — checked automatically once Shizuku connects</string>
 
@@ -23,7 +25,7 @@
     <!-- Run button -->
     <string name="run_root">Root now</string>
     <string name="run_reroot">Re-root</string>
-    <string name="run_running">Running… (up to 7 min)</string>
+    <string name="run_running">Running… (up to 8 min)</string>
 
     <!-- Status line -->
     <string name="status_permission_denied">Permission denied</string>
@@ -31,8 +33,8 @@
     <string name="status_shizuku_start">Please start Shizuku (wireless debugging)</string>
     <string name="status_requesting">Requesting Shizuku permission…</string>
     <string name="status_request_failed">Permission request failed</string>
-    <string name="status_running">Running exploit… (up to 7 min)</string>
-    <string name="status_root_ok">Root succeeded (KSU loaded)</string>
+    <string name="status_running">Running exploit… (up to 8 min)</string>
+    <string name="status_root_ok">Root succeeded (KernelSU Next loaded)</string>
     <string name="status_done_unverified">Done (KSU unverified)</string>
     <string name="status_failed_fmt">Failed (exit=%1$d)</string>
     <string name="status_error">Execution error</string>
@@ -56,7 +58,7 @@
     <!-- Dialogs -->
     <string name="dialog_run_title">Start rooting</string>
     <string name="dialog_rerun_title">Re-root</string>
-    <string name="dialog_run_msg">Run the CVE-2026-98260 timer exploit.\n\n• Takes about 1–7 minutes\n• If it fails, a reboot restores everything\n\nContinue?</string>
+    <string name="dialog_run_msg">Run the Pixel 8 Pro CVE-2026-98260 timer exploit and load KernelSU Next.\n\nTested only on Pixel 8 Pro with kernel 6.1.162-android14-11-g9dd05ae3a1de-ab16261587. A failed run may require a reboot.\n\nContinue?</string>
     <string name="dialog_rerun_msg">The device is already rooted.\nRun the exploit again?\n\n(The load step is skipped when the module is already live.)</string>
     <string name="dialog_confirm_run">Run</string>
     <string name="dialog_cancel">Cancel</string>
@@ -69,22 +71,22 @@
     <string name="notif_auto_started">Auto-root started</string>
     <string name="notif_binding">Binding Shizuku UserService…</string>
     <string name="notif_success">Auto-root succeeded ✓</string>
-    <string name="notif_success_text">KernelSU module loaded — grant su in the manager app</string>
+    <string name="notif_success_text">KernelSU Next module loaded — grant su in the manager app</string>
     <string name="notif_fail">Auto-root failed</string>
     <string name="notif_skip">Auto-root skipped</string>
     <string name="notif_skip_text">Shizuku did not start after boot — check the Shizuku app</string>
     <string name="notif_already">Already rooted</string>
-    <string name="notif_already_text">The KernelSU module is already loaded</string>
+    <string name="notif_already_text">The KernelSU Next module is already loaded</string>
     <string name="notif_no_perm">No Shizuku permission — run the app manually once, then try again</string>
     <string name="notif_timeout">Timed out (9 min)</string>
     <string name="notif_bind_fail_fmt">UserService bind failed: %1$s</string>
     <string name="notif_fail_exit_fmt">Auto-root failed (exit=%1$d)</string>
     <string name="notif_disabled_hint">Auto-root has been disabled — retry manually in the app</string>
-    <string name="credits">by RiosWesley (GitHub) · fntz1 (XDA)</string>
-    <string name="manager_button">KernelSU 3.2.5 manager</string>
+    <string name="credits">Based on SamTimer · Pixel port</string>
+    <string name="manager_button">KernelSU Next manager</string>
     <string name="manager_dialog_title">Root succeeded</string>
-    <string name="manager_dialog_msg">Install the KernelSU 3.2.5 manager to match the loaded module. If the 3.3.1 manager is already installed, uninstall it first — Android may refuse the 3.2.5 downgrade. The 3.3.1 manager shows “kernel needs update”.</string>
+    <string name="manager_dialog_msg">Install the KernelSU Next v3.4.2 manager to match the bundled ksud binary. Root is temporary and clears on reboot.</string>
     <string name="manager_dialog_open">Download manager</string>
     <string name="manager_dialog_later">Later</string>
-    <string name="manager_url" translatable="false">https://github.com/tiann/KernelSU/releases/download/v3.2.5/KernelSU_v3.2.5_32525-release.apk</string>
+    <string name="manager_url" translatable="false">https://github.com/KernelSU-Next/KernelSU-Next/releases/tag/v3.4.2</string>
 </resources>

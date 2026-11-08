@@ -133,6 +133,12 @@ fun RootScreen(
                     color = TextSecondary
                 )
                 Text(
+                    stringResource(R.string.tested_profile),
+                    Modifier.padding(top = 2.dp),
+                    fontSize = 12.sp,
+                    color = Warn
+                )
+                Text(
                     stringResource(R.string.credits),
                     Modifier.padding(top = 2.dp),
                     fontSize = 11.sp,
@@ -175,16 +181,14 @@ fun RootScreen(
                     HorizontalDivider(color = Color(0xFF232A34))
                     Spacer(Modifier.height(12.dp))
                     StatusRow("Shizuku", shizukuLabel, shizukuDot)
-                    if (rootDot == Accent) {
-                        Spacer(Modifier.height(6.dp))
-                        TextButton(onClick = onOpenManager) {
-                            Text(
-                                stringResource(R.string.manager_button),
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                color = Accent
-                            )
-                        }
+                    Spacer(Modifier.height(6.dp))
+                    TextButton(onClick = onOpenManager) {
+                        Text(
+                            stringResource(R.string.manager_button),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Accent
+                        )
                     }
                 }
             }

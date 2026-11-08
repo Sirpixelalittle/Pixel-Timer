@@ -5,7 +5,7 @@ plugins {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Exploit payload build: app/src/main/cpp/timer.c → jniLibs/arm64-v8a/libtimer.so
+// Pixel 8 Pro payload build: timer.c + offsets.h + pixel_main.inc → libtimer.so
 //
 // The CVE-2026-98260 binary ships inside the APK and is executed straight
 // from nativeLibraryDir (useLegacyPackaging keeps it uncompressed).  Building
@@ -35,6 +35,7 @@ fun ndkHome(): String? {
     }
     val home = System.getProperty("user.home")
     return listOf(
+        "$home/Projects/susfs/kernel_pixel_6.1/prebuilts/ndk-r23",
         "$home/android-ndk-r27c",
         "$home/Android/Sdk/ndk/27.2.12479018"
     ).firstOrNull { file(it).exists() }
@@ -45,7 +46,7 @@ val buildPayload by tasks.registering(Exec::class) {
     description = "Builds the timer exploit payload into jniLibs (arm64)"
     val src = file("src/main/cpp/timer.c")
     val out = file("src/main/jniLibs/arm64-v8a/libtimer.so")
-    inputs.file(src)
+    inputs.files(src, file("src/main/cpp/offsets.h"), file("src/main/cpp/pixel_main.inc"))
     outputs.file(out)
     doFirst {
         val ndk = ndkHome()
@@ -54,14 +55,15 @@ val buildPayload by tasks.registering(Exec::class) {
             )
         val windows = System.getProperty("os.name").startsWith("Windows")
         val host = if (windows) "windows-x86_64" else "linux-x86_64"
-        val cc = "$ndk/toolchains/llvm/prebuilt/$host/bin/aarch64-linux-android34-clang" +
+        val cc = "$ndk/toolchains/llvm/prebuilt/$host/bin/aarch64-linux-android31-clang" +
             if (windows) ".cmd" else ""
         if (!file(cc).exists()) throw GradleException("clang not found: $cc")
         out.parentFile.mkdirs()
         logger.lifecycle("payload: $src -> $out")
         val args = listOf(
             "-O2", "-std=gnu11", "-static",
-            "-ffunction-sections", "-fdata-sections",
+            "-Wall", "-Wextra", "-Wno-unused-parameter",
+            "-ffunction-sections", "-fdata-sections", "-Wl,--gc-sections",
             src.absolutePath, "-o", out.absolutePath
         )
         if (windows)
@@ -76,7 +78,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.roottimer.app"
+        applicationId = "com.pixeltimer.app"
         minSdk = 31
         targetSdk = 34
         versionCode = 4
@@ -142,9 +144,7 @@ dependencies {
 // The payload must exist before anything packages jniLibs.
 tasks.named("preBuild") { dependsOn(buildPayload) }
 
-// clean deletes build outputs; the generated payload lives in jniLibs,
-// so add it to the clean set (libksud.so is a hand-placed prebuilt and
-// is left alone).
+// clean deletes build outputs; the generated payload lives in jniLibs.
 tasks.named<Delete>("clean") {
     delete(file("src/main/jniLibs/arm64-v8a/libtimer.so"))
 }

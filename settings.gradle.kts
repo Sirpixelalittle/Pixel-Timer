@@ -13,5 +13,5 @@ dependencyResolutionManagement {
         maven("https://jitpack.io")
     }
 }
-rootProject.name = "RootTimer"
+rootProject.name = "PixelTimer"
 include(":app")

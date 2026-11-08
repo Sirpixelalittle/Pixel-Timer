@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Header -->
-    <string name="app_name">SamTimer</string>
-    <string name="app_title">SamTimer</string>
-    <string name="app_subtitle">CVE-2026-98260 · Samsung Kernel LPE</string>
+    <string name="app_name">Pixel Timer</string>
+    <string name="app_title">Pixel Timer</string>
+    <string name="app_subtitle">CVE-2026-98260 · Pixel 8 Pro</string>
+    <string name="tested_profile">Pixel 8 Pro · CP3A.261005.005에서만 테스트됨</string>
+    <string name="unsupported_profile">지원되지 않는 기기 또는 커널입니다. 테스트된 Pixel 8 Pro 커널이 필요합니다.</string>
 
     <!-- Root status -->
     <string name="root_checking">확인 중…</string>
     <string name="root_rooted">루팅 됨</string>
     <string name="root_not_rooted">루팅 안 됨</string>
     <string name="root_unknown">확인 불가</string>
-    <string name="root_rooted_detail">KernelSU 모듈 Live · 매니저에서 su 승인 후 사용</string>
+    <string name="root_rooted_detail">KernelSU Next 모듈 로드됨 · 매니저에서 su 승인 후 사용</string>
     <string name="root_not_detail">재부팅하면 루팅은 해제됩니다</string>
     <string name="root_unknown_detail">권한 없음 — Shizuku 연결 후 자동 확인됩니다</string>
 
@@ -23,7 +25,7 @@
     <!-- Run button -->
     <string name="run_root">루트 실행</string>
     <string name="run_reroot">재루팅</string>
-    <string name="run_running">실행 중… (최대 7분)</string>
+    <string name="run_running">실행 중… (최대 8분)</string>
 
     <!-- Status line -->
     <string name="status_permission_denied">권한 거부됨</string>
@@ -31,7 +33,7 @@
     <string name="status_shizuku_start">Shizuku를 시작해 주세요 (무선 디버깅)</string>
     <string name="status_requesting">Shizuku 권한 요청 중…</string>
     <string name="status_request_failed">권한 요청 실패</string>
-    <string name="status_running">익스플로잇 실행 중… (최대 7분)</string>
+    <string name="status_running">익스플로잇 실행 중… (최대 8분)</string>
     <string name="status_root_ok">루트 성공 (KSU 로드됨)</string>
     <string name="status_done_unverified">완료 (KSU 미확인)</string>
     <string name="status_failed_fmt">실패 (exit=%1$d)</string>
@@ -56,7 +58,7 @@
     <!-- Dialogs -->
     <string name="dialog_run_title">루팅 시작</string>
     <string name="dialog_rerun_title">재루팅</string>
-    <string name="dialog_run_msg">CVE-2026-98260 타이머 익스플로잇을 실행합니다.\n\n• 소요: 약 1~7분\n• 실패해도 재부팅하면 원상복구됩니다\n\n계속할까요?</string>
+    <string name="dialog_run_msg">Pixel 8 Pro용 CVE-2026-98260 타이머 익스플로잇을 실행하고 KernelSU Next를 로드합니다.\n\n커널 6.1.162-android14-11-g9dd05ae3a1de-ab16261587의 Pixel 8 Pro에서만 테스트되었습니다. 실패하면 재부팅이 필요할 수 있습니다.\n\n계속할까요?</string>
     <string name="dialog_rerun_msg">이미 루팅되어 있습니다.\n다시 익스플로잇을 실행할까요?\n\n(모듈이 이미 로드되어 있으면 로드 단계는 건너뜁니다)</string>
     <string name="dialog_confirm_run">실행</string>
     <string name="dialog_cancel">취소</string>
@@ -69,12 +71,12 @@
     <string name="notif_auto_started">자동 루팅 시작</string>
     <string name="notif_binding">Shizuku UserService 바인딩 중…</string>
     <string name="notif_success">자동 루팅 성공 ✓</string>
-    <string name="notif_success_text">KernelSU 모듈 로드됨 — 매니저에서 su 승인 후 사용</string>
+    <string name="notif_success_text">KernelSU Next 모듈 로드됨 — 매니저에서 su 승인 후 사용</string>
     <string name="notif_fail">자동 루트 실패</string>
     <string name="notif_skip">자동 루트 건너뜀</string>
     <string name="notif_skip_text">Shizuku가 부팅 후 실행되지 않았습니다 — Shizuku 앱을 확인하세요</string>
     <string name="notif_already">이미 루팅됨</string>
-    <string name="notif_already_text">KernelSU 모듈이 이미 로드되어 있습니다</string>
+    <string name="notif_already_text">KernelSU Next 모듈이 이미 로드되어 있습니다</string>
     <string name="notif_no_perm">Shizuku 권한이 없습니다 — 앱에서 수동으로 한 번 실행한 뒤 다시 시도하세요</string>
     <string name="notif_timeout">타임아웃 (9분)</string>
     <string name="notif_bind_fail_fmt">UserService 바인딩 실패: %1$s</string>

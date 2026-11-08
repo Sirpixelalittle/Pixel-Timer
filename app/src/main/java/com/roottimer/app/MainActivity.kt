@@ -74,8 +74,8 @@ class MainActivity : ComponentActivity() {
                 main.post {
                     appendLog(getString(R.string.log_permission_denied))
                     setStatus(getString(R.string.status_permission_denied), Danger)
-                    rootLabel = "확인 불가"
-                    rootDetail = "Shizuku 권한이 필요합니다"
+                    rootLabel = getString(R.string.root_unknown)
+                    rootDetail = getString(R.string.root_unknown_detail)
                 }
             }
         }
@@ -84,7 +84,7 @@ class MainActivity : ComponentActivity() {
         main.post {
             shizukuLabel = getString(R.string.shizuku_connected)
             shizukuDot = Accent
-            runEnabled = true
+            runEnabled = DeviceProfile.isSupported()
             // 권한이 이미 있으면 상태 조회용으로 서비스를 바인딩해 둔다
             if (checkPermission()) ensureBound() else runCatching {
                 Shizuku.requestPermission(REQ_PERM)
@@ -125,7 +125,7 @@ class MainActivity : ComponentActivity() {
             ComponentName(packageName, RootService::class.java.name)
         )
             .daemon(false)
-            .processNameSuffix("roottimer")
+            .processNameSuffix("pixeltimer")
             .debuggable(false)
             .version(2)
         boundArgs = args
@@ -137,6 +137,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         autoRoot = getSharedPreferences(Prefs.NAME, MODE_PRIVATE)
             .getBoolean(Prefs.AUTO_ROOT, false)
+        if (!DeviceProfile.isSupported() && autoRoot) {
+            autoRoot = false
+            getSharedPreferences(Prefs.NAME, MODE_PRIVATE)
+                .edit().putBoolean(Prefs.AUTO_ROOT, false).apply()
+        }
         rootLabel = getString(R.string.root_checking)
         shizukuLabel = getString(R.string.shizuku_checking)
         runLabel = getString(R.string.run_root)
@@ -148,13 +153,16 @@ class MainActivity : ComponentActivity() {
         if (Shizuku.pingBinder()) {
             shizukuLabel = getString(R.string.shizuku_connected)
             shizukuDot = Accent
-            runEnabled = true
+            runEnabled = DeviceProfile.isSupported()
         } else {
             shizukuLabel = getString(R.string.shizuku_waiting)
             shizukuDot = Warn
             setStatus(getString(R.string.status_shizuku_start), Warn)
         }
         updateRootBadge()
+        if (!DeviceProfile.isSupported()) {
+            setStatus(getString(R.string.unsupported_profile), Danger)
+        }
 
         setContent {
             MaterialTheme(colorScheme = RootTimerColors) {
@@ -173,7 +181,7 @@ class MainActivity : ComponentActivity() {
                     logs = logs,
                     onRun = { showRunConfirm = true },
                     onAutoToggle = { checked ->
-                        if (checked) showAutoConfirm = true
+                        if (checked && DeviceProfile.isSupported()) showAutoConfirm = true
                         else {
                             autoRoot = false
                             getSharedPreferences(Prefs.NAME, MODE_PRIVATE)
@@ -335,6 +343,10 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun startRun() {
+        if (!DeviceProfile.isSupported()) {
+            setStatus(getString(R.string.unsupported_profile), Danger)
+            return
+        }
         if (!running.compareAndSet(false, true)) return
         isRunning = true
         runEnabled = false
@@ -405,8 +417,8 @@ class MainActivity : ComponentActivity() {
                     setStatus(getString(R.string.status_error), Danger)
                     running.set(false)
                     isRunning = false
-                    runEnabled = true
-                    runLabel = "루트 실행"
+                    runEnabled = DeviceProfile.isSupported()
+                    runLabel = getString(R.string.run_root)
                 }
             }
     }
