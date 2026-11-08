@@ -2,7 +2,7 @@
 
 Pixel Timer is an Android app for a temporary root attempt on the **Pixel 8 Pro** using CVE-2026-98260. It adapts the [SamTimer](https://github.com/yoro1836/SamTimer) app interface to the Pixel 8 Pro proof of concept in this project.
 
-**Only the Pixel 8 Pro (husky), stock build CP3A.261005.005, kernel `6.1.162-android14-11-g9dd05ae3a1de-ab16261587`, 4 KiB pages has been tested.** The app refuses to run on any other device or kernel. The Pixel 8 Pro owner confirmed the full app flow, including KernelSU Next loading, works end to end on this profile.
+**Only the Pixel 8 Pro (husky), stock build CP3A.261005.005, kernel `6.1.162-android14-11-g9dd05ae3a1de-ab16261587`, 4 KiB pages has been tested.** The app refuses to run on any other device or kernel. 
 
 Root is temporary and clears on reboot. A failed attempt can leave the device unstable until a reboot. Use only on a device you own or are authorized to test.
 
